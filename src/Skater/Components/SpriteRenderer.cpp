@@ -31,8 +31,7 @@ namespace Skater {
 
         const auto centeringOffset = (renderArea.Size() / 2.0).ToVector2();
 
-        // TODO: Add tint color and layer depth to new GraphicsComponent parent class
-        Game::GetInstance().GetRenderer()->Draw(_textureRegion.Tex, _entity->Position - centeringOffset, renderArea, Color::White, 0);
+        Game::GetInstance().GetRenderer()->Draw(_textureRegion.Tex, _entity->Position - centeringOffset + Offset, renderArea, ModulateColor, SortingLayer);
     }
 
 }

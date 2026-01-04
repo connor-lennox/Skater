@@ -3,13 +3,14 @@
 //
 
 #pragma once
+#include "GraphicsComponent.h"
 #include "TextureRegion.h"
 #include "Skater/Core/Component.h"
 
 namespace Skater {
-    class SpriteRenderer : public Component {
+    class SpriteRenderer : public GraphicsComponent {
     public:
-        SpriteRenderer() : Component("SpriteRenderer") {}
+        SpriteRenderer() : GraphicsComponent("SpriteRenderer") {}
 
         void Render() override;
 
