@@ -2,12 +2,7 @@
 // Created by connor on 12/15/25.
 //
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "Skater/Game.h"
-
-#include <iostream>
 
 #include "Skater/Events/Event.h"
 #include "Skater/Events/WindowEvent.h"
@@ -23,11 +18,7 @@ namespace Skater {
         _window = Window::Create();
         _window->SetEventCallback([this]<typename T0>(T0 && PH1) { OnEvent(std::forward<T0>(PH1)); });
 
-        if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
-        {
-            std::cout << "Failed to initialize GLAD" << std::endl;
-            return;
-        }
+        RenderCommand::Init();
 
         _renderer = new Renderer();
         _backbuffer = Framebuffer::Create(384, 216);

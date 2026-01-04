@@ -4,12 +4,22 @@
 
 #include "GlRendererAPI.h"
 
-#include "glad/glad.h"
+#include <iostream>
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 
 namespace Skater {
     GlRendererAPI::~GlRendererAPI() = default;
 
     void GlRendererAPI::Init() {
+        if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
+        {
+            std::cout << "Failed to initialize GLAD" << std::endl;
+            return;
+        }
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
