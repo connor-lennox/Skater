@@ -6,6 +6,7 @@
 
 #include <algorithm>
 
+#include "glad/glad.h"
 #include "Skater/Renderer/RenderCommand.h"
 
 namespace Skater {
@@ -68,7 +69,7 @@ namespace Skater {
         }
 
         // Flush out anything remaining
-        FlushVertexArray(batchStart, itemIndex, lastTexture);
+        FlushVertexArray(batchStart, itemIndex * 4, lastTexture);
 
         // Reset batch item index, we've drawn this batch (effectively return everything to the pool)
         _batchItemIndex = 0;
@@ -82,6 +83,7 @@ namespace Skater {
 
         _vao->GetVertexBuffer()->SetData(_verts, sizeof(VertexPositionColorTexture) * vertexCount);
 
+        glActiveTexture(GL_TEXTURE0);
         texture->Bind();
 
         // Each quad is 4 verts but 6 indices

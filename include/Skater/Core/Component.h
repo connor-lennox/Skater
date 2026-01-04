@@ -16,9 +16,9 @@ namespace Skater {
         explicit Component(string type);
         virtual ~Component() = default;
 
-        virtual void Init() = 0;
-        virtual void Update() = 0;
-        virtual void Render() = 0;
+        virtual void Init() {}
+        virtual void Update() {}
+        virtual void Render() {}
 
         [[nodiscard]] uint32_t GetId() const { return _id; }
         [[nodiscard]] string GetType() const { return _type; }

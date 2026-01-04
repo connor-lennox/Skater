@@ -14,11 +14,14 @@ namespace Skater {
         Game();
         virtual ~Game();
 
+        virtual void Setup() {}
         void Run();
 
         void OnEvent(Event& event);
 
-        [[nodiscard]] Renderer GetRenderer() const { return *_renderer; }
+        [[nodiscard]] Renderer* GetRenderer() const { return _renderer; }
+
+        void SetScene(Scene* scene);
 
         static Game& GetInstance();
     private:
@@ -28,6 +31,6 @@ namespace Skater {
         bool _running = true;
 
         Renderer* _renderer;
-        Scene* _currentScene;
+        Scene* _currentScene = nullptr;
     };
 }

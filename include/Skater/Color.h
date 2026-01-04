@@ -7,14 +7,16 @@
 
 namespace Skater {
     struct Color {
-        uint8_t R = 255;
-        uint8_t G = 255;
-        uint8_t B = 255;
-        uint8_t A = 255;
+        float R = 1.0;
+        float G = 1.0;
+        float B = 1.0;
+        float A = 1.0;
 
-        Color() : Color(255, 255, 255, 255) {}
-        Color(const uint8_t red, const uint8_t green, const uint8_t blue) : Color(red, green, blue, 255) {}
-        Color(const uint8_t red, const uint8_t green, const uint8_t blue, const uint8_t alpha) : R(red), G(green), B(blue), A(alpha) {}
+        Color() : Color(1.0f, 1.0f, 1.0f, 1.0f) {}
+        Color(const uint8_t red, const uint8_t green, const uint8_t blue) : Color(red / 255.0f, green / 255.0f, blue / 255.0f, 1.0) {}
+        Color(const uint8_t red, const uint8_t green, const uint8_t blue, const uint8_t alpha) : Color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f) {}
+
+        Color(const float red, const float green, const float blue, const float alpha) : R(red), G(green), B(blue), A(alpha) {}
 
         static const Color AliceBlue;
         static const Color AntiqueWhite;

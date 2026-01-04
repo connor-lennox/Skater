@@ -24,7 +24,7 @@ namespace Skater {
 
     void GlVertexBuffer::SetData(const void *data, const uint32_t size) const {
         glBindBuffer(GL_ARRAY_BUFFER, _rendererId);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+        glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
     }
 
     void GlVertexBuffer::Bind() const {
@@ -53,7 +53,7 @@ namespace Skater {
 
     void GlIndexBuffer::SetData(const void *data, const uint32_t count) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _rendererId);
-        glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, count * sizeof(uint32_t), data);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), data, GL_STATIC_DRAW);
         _count = count;
     }
 

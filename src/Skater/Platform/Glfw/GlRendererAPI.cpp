@@ -10,11 +10,12 @@ namespace Skater {
     GlRendererAPI::~GlRendererAPI() = default;
 
     void GlRendererAPI::Init() {
-        // Nothing for now
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     void GlRendererAPI::SetClearColor(const Color color) {
-        glClearColor(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0);
+        glClearColor(color.R, color.G, color.B, color.A);
     }
 
     void GlRendererAPI::Clear() {

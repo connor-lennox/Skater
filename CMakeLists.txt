@@ -3,6 +3,13 @@ project(Skater)
 
 set(CMAKE_CXX_STANDARD 20)
 
+include(cmake/EmbedResources.cmake)
+
+SET(RESOURCE_FILES
+    "resources/shaders/default_vertex.glsl"
+    "resources/shaders/default_fragment.glsl"
+)
+
 add_subdirectory("lib/glad")
 
 add_library(${PROJECT_NAME} STATIC
@@ -30,8 +37,16 @@ add_library(${PROJECT_NAME} STATIC
         src/Skater/Components/SpriteRenderer.cpp
         src/Skater/Core/EntityList.cpp
         src/Skater/Core/Scene.cpp
+        src/Skater/StbInit.cpp
+        src/Skater/Resources/ResourceDatabase.cpp
+        src/Skater/Platform/Glfw/GlShader.cpp
+        src/Skater/Platform/Glfw/GlShader.h
+        src/Skater/Renderer/Shader.cpp
 )
 target_include_directories(${PROJECT_NAME} PRIVATE include)
+target_include_directories(${PROJECT_NAME} PRIVATE lib/stb)
 
 target_link_libraries(${PROJECT_NAME} glad)
 target_link_libraries(${PROJECT_NAME} glfw)
+
+embed_resources(TARGET ${PROJECT_NAME} RESOURCES ${RESOURCE_FILES})

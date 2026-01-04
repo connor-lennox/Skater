@@ -10,18 +10,19 @@ namespace Skater {
     namespace {
         // TODO: Make these all dynamically set from the VBO layout
         constexpr uint32_t POS_SIZE = 2;
-        constexpr uint32_t COLOR_SIZE = 1;
+        constexpr uint32_t COLOR_SIZE = 4;
         constexpr uint32_t TEX_COORDS_SIZE = 2;
-        constexpr uint32_t TEX_ID_SIZE = 1;
-        constexpr uint32_t ENTITY_ID_SIZE = 1;
+        // constexpr uint32_t TEX_ID_SIZE = 1;
+        // constexpr uint32_t ENTITY_ID_SIZE = 1;
 
         constexpr uint32_t POS_OFFSET = 0;
         constexpr uint32_t COLOR_OFFSET = POS_OFFSET + POS_SIZE * sizeof(float);
         constexpr uint32_t TEX_COORDS_OFFSET = COLOR_OFFSET + COLOR_SIZE * sizeof(uint32_t);
-        constexpr uint32_t TEX_ID_OFFSET = TEX_COORDS_OFFSET + TEX_COORDS_SIZE * sizeof(float);
-        constexpr uint32_t ENTITY_ID_OFFSET = TEX_ID_OFFSET + TEX_ID_SIZE * sizeof(float);
+        // constexpr uint32_t TEX_ID_OFFSET = TEX_COORDS_OFFSET + TEX_COORDS_SIZE * sizeof(float);
+        // constexpr uint32_t ENTITY_ID_OFFSET = TEX_ID_OFFSET + TEX_ID_SIZE * sizeof(float);
 
-        constexpr uint32_t VERTEX_SIZE = POS_SIZE + COLOR_SIZE + TEX_COORDS_SIZE + TEX_ID_SIZE + ENTITY_ID_SIZE;
+        // constexpr uint32_t VERTEX_SIZE = POS_SIZE + COLOR_SIZE + TEX_COORDS_SIZE + TEX_ID_SIZE + ENTITY_ID_SIZE;
+        constexpr uint32_t VERTEX_SIZE = POS_SIZE + COLOR_SIZE + TEX_COORDS_SIZE;
         constexpr uint32_t VERTEX_SIZE_BYTES = VERTEX_SIZE * sizeof(float);
     }
 
@@ -45,6 +46,7 @@ namespace Skater {
         _vertexBuffer = buffer;
         glBindVertexArray(_vaoId);
         buffer->Bind();
+        glBufferData(GL_ARRAY_BUFFER, 256 * 4 * VERTEX_SIZE_BYTES, nullptr, GL_DYNAMIC_DRAW);
 
         glVertexAttribPointer(0, POS_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(POS_OFFSET));
         glEnableVertexAttribArray(0);
@@ -55,11 +57,11 @@ namespace Skater {
         glVertexAttribPointer(2, TEX_COORDS_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(TEX_COORDS_OFFSET));
         glEnableVertexAttribArray(2);
 
-        glVertexAttribPointer(3, TEX_ID_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(TEX_ID_OFFSET));
-        glEnableVertexAttribArray(3);
-
-        glVertexAttribPointer(4, ENTITY_ID_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(ENTITY_ID_OFFSET));
-        glEnableVertexAttribArray(4);
+        // glVertexAttribPointer(3, TEX_ID_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(TEX_ID_OFFSET));
+        // glEnableVertexAttribArray(3);
+        //
+        // glVertexAttribPointer(4, ENTITY_ID_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(ENTITY_ID_OFFSET));
+        // glEnableVertexAttribArray(4);
     }
 
     void GlVertexArray::SetIndexBuffer(IndexBuffer *buffer) {

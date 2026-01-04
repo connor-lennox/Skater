@@ -22,8 +22,13 @@ namespace Skater {
     }
 
     void SpriteRenderer::Render() {
+        // Can't draw without a texture
+        if (_textureRegion.Tex == nullptr) {
+            return;
+        }
+
         // TODO: Add tint color and layer depth to new GraphicsComponent parent class
-        Game::GetInstance().GetRenderer().Draw(_textureRegion.Tex, _entity->Position, GetRenderArea(), Color::White, 0);
+        Game::GetInstance().GetRenderer()->Draw(_textureRegion.Tex, _entity->Position, GetRenderArea(), Color::White, 0);
     }
 
 }

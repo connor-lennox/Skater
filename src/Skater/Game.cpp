@@ -77,6 +77,8 @@ namespace Skater {
     }
 
     void Game::Run() {
+        Setup();
+
         RenderCommand::SetClearColor(Color::CornflowerBlue);
 
         while(_running)
@@ -87,10 +89,19 @@ namespace Skater {
 
             _renderer->Start();
 
+            if (_currentScene != nullptr) {
+                _currentScene->Update();
+                _currentScene->Render();
+            }
+
             _renderer->Finish();
 
             _window->OnUpdate();
         }
+    }
+
+    void Game::SetScene(Scene *scene) {
+        _currentScene = scene;
     }
 
     Game& Game::GetInstance() {
