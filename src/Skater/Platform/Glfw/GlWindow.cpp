@@ -2,6 +2,8 @@
 // Created by connor on 12/16/25.
 //
 
+#include <glad/glad.h>
+
 #include "GlWindow.h"
 
 #include "GlKeyUtil.h"
@@ -51,6 +53,8 @@ namespace Skater {
             WindowData& data = *static_cast<WindowData *>(glfwGetWindowUserPointer(window));
             data.Width = width;
             data.Height = height;
+
+            glViewport(0, 0, width, height);
 
             WindowResizeEvent event(width, height);
             data.EventCallback(event);

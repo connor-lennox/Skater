@@ -46,7 +46,6 @@ namespace Skater {
         _vertexBuffer = buffer;
         glBindVertexArray(_vaoId);
         buffer->Bind();
-        glBufferData(GL_ARRAY_BUFFER, 256 * 4 * VERTEX_SIZE_BYTES, nullptr, GL_DYNAMIC_DRAW);
 
         glVertexAttribPointer(0, POS_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(POS_OFFSET));
         glEnableVertexAttribArray(0);

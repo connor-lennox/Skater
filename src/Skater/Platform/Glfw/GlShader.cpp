@@ -65,22 +65,44 @@ namespace Skater {
     }
 
     void GlShader::SetInt(const std::string &name, const int value) {
+        Bind();
         const GLint location = glGetUniformLocation(_shaderId, name.c_str());
         glUniform1i(location, value);
     }
 
     void GlShader::SetIntArray(const std::string &name, int *values, const uint32_t count) {
+        Bind();
         const GLint location = glGetUniformLocation(_shaderId, name.c_str());
         glUniform1iv(location, count, values);
     }
 
     void GlShader::SetFloat(const std::string &name, const float value) {
+        Bind();
         const GLint location = glGetUniformLocation(_shaderId, name.c_str());
         glUniform1f(location, value);
     }
 
     void GlShader::SetFloat2(const std::string &name, const Vector2 &value) {
+        Bind();
         const GLint location = glGetUniformLocation(_shaderId, name.c_str());
         glUniform2f(location, value.X, value.Y);
+    }
+
+    void GlShader::SetFloat3(const std::string &name, const Vector3 &value) {
+        Bind();
+        const GLint location = glGetUniformLocation(_shaderId, name.c_str());
+        glUniform3f(location, value.X, value.Y, value.Z);
+    }
+
+    void GlShader::SetFloat4(const std::string &name, const Vector4 &value) {
+        Bind();
+        const GLint location = glGetUniformLocation(_shaderId, name.c_str());
+        glUniform4f(location, value.X, value.Y, value.Z, value.W);
+    }
+
+    void GlShader::SetMatrix4(const std::string &name, const Matrix4 &value) {
+        Bind();
+        const GLint location = glGetUniformLocation(_shaderId, name.c_str());
+        glUniformMatrix4fv(location, 1, GL_TRUE, value.Elements);
     }
 }

@@ -37,7 +37,6 @@ namespace Skater {
             br = Vector2::One;
         }
 
-        // TODO: Use a proper projection and un-divide this
-        batchItem->Set(position.X, position.Y, w / 128.0, h / 128.0, color, tl, br, layerDepth);
+        batchItem->Set(position.X, position.Y, w, h, color, tl, br, layerDepth);
     }
 }
