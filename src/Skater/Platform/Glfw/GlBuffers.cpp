@@ -16,15 +16,21 @@ namespace Skater {
         glCreateBuffers(1, &_rendererId);
         glBindBuffer(GL_ARRAY_BUFFER, _rendererId);
         glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+        _maxSize = size;
     }
 
     GlVertexBuffer::~GlVertexBuffer() {
         glDeleteBuffers(1, &_rendererId);
     }
 
-    void GlVertexBuffer::SetData(const void *data, const uint32_t size) const {
+    void GlVertexBuffer::SetData(const void *data, const uint32_t size) {
         glBindBuffer(GL_ARRAY_BUFFER, _rendererId);
-        glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+        if (size > _maxSize) {
+            glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+            _maxSize = size;
+        } else {
+            glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+        }
     }
 
     void GlVertexBuffer::Bind() const {

@@ -14,12 +14,13 @@ namespace Skater {
         GlVertexBuffer(const float* vertices, uint32_t size);
         ~GlVertexBuffer() override;
 
-        void SetData(const void *data, uint32_t size) const override;
+        void SetData(const void *data, uint32_t size) override;
 
         void Bind() const override;
         void Unbind() const override;
     private:
         uint32_t _rendererId = 0;
+        uint32_t _maxSize = 0;
     };
 
     class GlIndexBuffer final : public IndexBuffer {
