@@ -15,14 +15,14 @@ namespace Skater {
 
     class WindowResizeEvent : public Event {
     public:
-        WindowResizeEvent(const unsigned int width, const unsigned int height)
+        WindowResizeEvent(const uint32_t width, const uint32_t height)
             : _width(width), _height(height) {}
 
-        unsigned int GetWidth() const { return _width; }
-        unsigned int GetHeight() const { return _height; }
+        uint32_t GetWidth() const { return _width; }
+        uint32_t GetHeight() const { return _height; }
 
         EVENT_CLASS_TYPE(WindowResize)
     private:
-        unsigned int _width, _height;
+        uint32_t _width, _height;
     };
 }

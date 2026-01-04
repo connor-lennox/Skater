@@ -29,9 +29,9 @@ namespace Skater {
             return;
         }
 
-        glViewport(0, 0, 800, 600);
-
         _renderer = new Renderer();
+        _backbuffer = Framebuffer::Create(384, 216);
+        UpdateRenderTargetDest();
 
         _staticGame = this;
     }
@@ -48,6 +48,7 @@ namespace Skater {
                 OnWindowClose(dynamic_cast<WindowCloseEvent &>(event));
                 break;
             case EventType::WindowResize:
+                UpdateRenderTargetDest();
                 break;
             case EventType::WindowFocus:
                 break;
@@ -87,14 +88,16 @@ namespace Skater {
 
             Input::Update();
 
-            _renderer->Start();
-
             if (_currentScene != nullptr) {
                 _currentScene->Update();
-                _currentScene->Render();
-            }
 
-            _renderer->Finish();
+                _backbuffer->Bind();
+                _renderer->Start();
+                _currentScene->Render();
+                _renderer->Finish();
+
+                _backbuffer->BlitToScreen(_renderTargetDest);
+            }
 
             _window->OnUpdate();
         }
@@ -104,11 +107,43 @@ namespace Skater {
         _currentScene = scene;
     }
 
+    void Game::SetBackbufferSize(const uint32_t width, const uint32_t height) {
+        if (_backbuffer != nullptr) {
+            _backbuffer->Unbind();
+            delete _backbuffer;
+        }
+        _backbuffer = Framebuffer::Create(width, height);
+    }
+
     Game& Game::GetInstance() {
         return *_staticGame;
     }
 
     void Game::OnWindowClose(WindowCloseEvent &e) {
         _running = false;
+    }
+
+    void Game::UpdateRenderTargetDest() {
+        const auto gameResolution = Point(_backbuffer->GetWidth(), _backbuffer->GetHeight());
+        const auto resolutionRatio = static_cast<float>(gameResolution.X) / gameResolution.Y;
+        const auto windowBounds = Point(_window->GetWidth(), _window->GetHeight());
+        const auto windowRatio = static_cast<float>(windowBounds.X) / windowBounds.Y;
+
+        float scale;
+
+        if (resolutionRatio < windowRatio) {
+            scale = static_cast<float>(windowBounds.Y) / gameResolution.Y;
+        } else if (resolutionRatio > windowRatio) {
+            scale = static_cast<float>(windowBounds.X) / gameResolution.X;
+        } else {
+            // If they have the same ratio, use the full window
+            _renderTargetDest = Rectangle(0, 0, windowBounds.X, windowBounds.Y);
+            return;
+        }
+
+        // Scale the backbuffer rect to fit nicely in the window
+        const auto scaledRect = Rectangle(0, 0, gameResolution.X * scale, gameResolution.Y * scale);
+        const auto centered = Rectangle::CenterRectangle(Rectangle(0, 0, _window->GetWidth(), _window->GetHeight()), scaledRect);
+        _renderTargetDest = centered;
     }
 }

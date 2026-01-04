@@ -5,6 +5,7 @@
 #pragma once
 #include "Window.h"
 #include "Core/Scene.h"
+#include "Renderer/Framebuffer.h"
 #include "Renderer/Renderer.h"
 #include "Skater/Events/WindowEvent.h"
 
@@ -23,6 +24,10 @@ namespace Skater {
 
         void SetScene(Scene* scene);
 
+        void SetBackbufferSize(uint32_t width, uint32_t height);
+
+        Rectangle GetRenderTargetDestination() const { return _renderTargetDest; };
+
         static Game& GetInstance();
     private:
         void OnWindowClose(WindowCloseEvent& e);
@@ -32,5 +37,10 @@ namespace Skater {
 
         Renderer* _renderer;
         Scene* _currentScene = nullptr;
+
+        Framebuffer* _backbuffer;
+
+        void UpdateRenderTargetDest();
+        Rectangle _renderTargetDest = Rectangle();
     };
 }

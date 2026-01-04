@@ -47,6 +47,15 @@ namespace Skater {
             data.EventCallback(event);
         });
 
+        glfwSetWindowSizeCallback(_window, [](GLFWwindow* window, int width, int height) {
+            WindowData& data = *static_cast<WindowData *>(glfwGetWindowUserPointer(window));
+            data.Width = width;
+            data.Height = height;
+
+            WindowResizeEvent event(width, height);
+            data.EventCallback(event);
+        });
+
         glfwSetKeyCallback(_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
             switch (action) {
                 case GLFW_PRESS: {

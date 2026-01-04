@@ -7,6 +7,8 @@
 #include "glad/glad.h"
 
 namespace Skater {
+    class Window;
+
     GlFramebuffer::GlFramebuffer(const uint32_t width, const uint32_t height) {
         _width = width;
         _height = height;
@@ -46,5 +48,9 @@ namespace Skater {
 
     void GlFramebuffer::Unbind() const {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
+    void GlFramebuffer::BlitToScreen(const Rectangle destination) const {
+        glBlitNamedFramebuffer(_fboId, 0, 0, 0, _width, _height, destination.Left(), destination.Top(), destination.Right(), destination.Bottom(), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, GL_NEAREST);
     }
 }

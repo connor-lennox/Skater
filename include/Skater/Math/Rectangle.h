@@ -36,6 +36,13 @@ namespace Skater {
 
         [[nodiscard]] bool IsEmpty() const { return X == 0 && Y == 0 && Width == 0 && Height == 0; }
 
+        [[nodiscard]] Rectangle Offset(const Point offset) const { return Rectangle(X + offset.X, Y + offset.Y, Width, Height); }
+
+        static Rectangle CenterRectangle(const Rectangle outer, const Rectangle inner) {
+            auto delta = outer.Center() - inner.Center();
+            return inner.Offset(delta);
+        }
+
         static const Rectangle Empty;
     };
 

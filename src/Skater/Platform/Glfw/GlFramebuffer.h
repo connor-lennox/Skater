@@ -5,6 +5,7 @@
 #pragma once
 #include <cstdint>
 
+#include "Skater/Window.h"
 #include "Skater/Renderer/Framebuffer.h"
 #include "Skater/Renderer/Texture.h"
 
@@ -16,6 +17,11 @@ namespace Skater {
 
         void Bind() const override;
         void Unbind() const override;
+
+        [[nodiscard]] uint32_t GetWidth() const override { return _width; }
+        [[nodiscard]] uint32_t GetHeight() const override { return _height; }
+
+        void BlitToScreen(Rectangle destination) const override;
     private:
         void Init();
 
