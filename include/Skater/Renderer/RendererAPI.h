@@ -16,6 +16,7 @@ namespace Skater {
         virtual void SetClearColor(Color color) = 0;
         virtual void Clear() = 0;
 
+        virtual void SetRenderViewportSize(uint32_t width, uint32_t height) = 0;
         virtual void DrawIndexed(VertexArray* vertexArray, uint32_t indexCount) = 0;
 
         static RendererAPI* Create();

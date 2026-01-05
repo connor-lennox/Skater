@@ -37,4 +37,8 @@ namespace Skater {
         const uint32_t count = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();
         glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
     }
+
+    void GlRendererAPI::SetRenderViewportSize(const uint32_t width, const uint32_t height) {
+        glViewport(0, 0, width, height);
+    }
 }

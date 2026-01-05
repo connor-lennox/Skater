@@ -16,5 +16,7 @@ namespace Skater {
         void Clear() override;
 
         void DrawIndexed(VertexArray *vertexArray, uint32_t indexCount) override;
+
+        void SetRenderViewportSize(uint32_t width, uint32_t height) override;
     };
 }

@@ -4,7 +4,6 @@
 
 #include "Skater/Game.h"
 
-#include "glad/glad.h"
 #include "Skater/Events/Event.h"
 #include "Skater/Events/WindowEvent.h"
 #include "Skater/Input/Input.h"
@@ -84,12 +83,12 @@ namespace Skater {
                 _currentScene->Update();
 
                 _backbuffer->Bind();
-                glViewport(0, 0, 384, 216);
+                RenderCommand::SetRenderViewportSize(_backbuffer->GetWidth(), _backbuffer->GetHeight());
                 _renderer->Start();
                 _currentScene->Render();
                 _renderer->Finish();
 
-                glViewport(0, 0, _window->GetWidth(), _window->GetHeight());
+                RenderCommand::SetRenderViewportSize(_window->GetWidth(), _window->GetHeight());
                 _backbuffer->BlitToScreen(_renderTargetDest);
             }
 

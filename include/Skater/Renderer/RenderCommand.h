@@ -14,6 +14,7 @@ namespace Skater {
         static void Clear() { _rendererAPI->Clear(); }
 
         static void DrawIndexed(VertexArray* vertexArray, const uint32_t indexCount) { _rendererAPI->DrawIndexed(vertexArray, indexCount); }
+        static void SetRenderViewportSize(const uint32_t width, const uint32_t height) { _rendererAPI->SetRenderViewportSize(width, height); }
     private:
         static RendererAPI* _rendererAPI;
     };
