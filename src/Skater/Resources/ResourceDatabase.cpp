@@ -14,7 +14,6 @@ namespace Skater {
         // }
 
         int x, y, n;
-        stbi_set_flip_vertically_on_load(true);
         const auto imageData = stbi_load(filename.c_str(), &x, &y, &n, 0);
 
         const auto imageFormat = n == 4 ? ImageFormat::RGBA : ImageFormat::RGB;

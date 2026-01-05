@@ -51,6 +51,6 @@ namespace Skater {
     }
 
     void GlFramebuffer::BlitToScreen(const Rectangle destination) const {
-        glBlitNamedFramebuffer(_fboId, 0, 0, 0, _width, _height, destination.Left(), destination.Top(), destination.Right(), destination.Bottom(), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+        glBlitNamedFramebuffer(_fboId, 0, 0, 0, _width, _height, destination.Left(), destination.Bottom(), destination.Right(), destination.Top(), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, GL_NEAREST);
     }
 }
