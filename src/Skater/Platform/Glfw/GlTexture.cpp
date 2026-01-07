@@ -18,22 +18,25 @@ namespace Skater {
         _bounds = Rectangle(0, 0, width, height);
 
         // Create and bind texture
-        glGenTextures(1, &_textureId);
-        glBindTexture(GL_TEXTURE_2D, _textureId);
+        glCreateTextures(GL_TEXTURE_2D, 1, &_textureId);
 
         // Set texture parameters
         const auto glFilter = static_cast<GLint>(GlTextureUtil::FilterModeToGl(specification.filterMode));
         const auto glWrap = static_cast<GLint>(GlTextureUtil::WrapModeToGl(specification.wrapMode));
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glFilter);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glFilter);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, glWrap);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, glWrap);
+        glTextureParameteri(_textureId, GL_TEXTURE_MIN_FILTER, glFilter);
+        glTextureParameteri(_textureId, GL_TEXTURE_MAG_FILTER, glFilter);
+        glTextureParameteri(_textureId, GL_TEXTURE_WRAP_S, glWrap);
+        glTextureParameteri(_textureId, GL_TEXTURE_WRAP_T, glWrap);
 
         // Set image data
-        const auto glImageFormat = static_cast<GLint>(GlTextureUtil::ImageFormatToGl(specification.imageFormat));
+        const auto glInternalFormat = static_cast<GLint>(GlTextureUtil::ImageFormatToGlInternalFormat(specification.imageFormat));
+        const auto glFormat = static_cast<GLint>(GlTextureUtil::ImageFormatToGlFormat(specification.imageFormat));
 
-        glTexImage2D(GL_TEXTURE_2D, 0, glImageFormat, width, height, 0, glImageFormat, GL_UNSIGNED_BYTE, image);
+        glTextureStorage2D(_textureId, 1, glInternalFormat, width, height);
+        if (image != nullptr) {
+            glTextureSubImage2D(_textureId, 0, 0, 0, width, height, glFormat, GL_UNSIGNED_BYTE, image);
+        }
     }
 
     GlTexture::~GlTexture() {

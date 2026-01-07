@@ -14,8 +14,7 @@ namespace Skater {
 
     GlVertexBuffer::GlVertexBuffer(const float* vertices, const uint32_t size) {
         glCreateBuffers(1, &_rendererId);
-        glBindBuffer(GL_ARRAY_BUFFER, _rendererId);
-        glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_DYNAMIC_DRAW);
+        glNamedBufferData(_rendererId, size, vertices, GL_DYNAMIC_DRAW);
         _maxSize = size;
     }
 
@@ -24,12 +23,11 @@ namespace Skater {
     }
 
     void GlVertexBuffer::SetData(const void *data, const uint32_t size) {
-        glBindBuffer(GL_ARRAY_BUFFER, _rendererId);
         if (size > _maxSize) {
-            glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
+            glNamedBufferData(_rendererId, size, data, GL_DYNAMIC_DRAW);
             _maxSize = size;
         } else {
-            glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+            glNamedBufferSubData(_rendererId, 0, size, data);
         }
     }
 
@@ -49,8 +47,7 @@ namespace Skater {
 
     GlIndexBuffer::GlIndexBuffer(const uint32_t *vertices, const uint32_t count) : _count(count) {
         glCreateBuffers(1, &_rendererId);
-        glBindBuffer(GL_ARRAY_BUFFER, _rendererId);
-        glBufferData(GL_ARRAY_BUFFER, _count * sizeof(uint32_t), vertices, GL_STATIC_DRAW);
+        glNamedBufferData(_rendererId, _count * sizeof(uint32_t), vertices, GL_STATIC_DRAW);
     }
 
     GlIndexBuffer::~GlIndexBuffer() {
@@ -58,8 +55,7 @@ namespace Skater {
     }
 
     void GlIndexBuffer::SetData(const void *data, const uint32_t count) {
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _rendererId);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), data, GL_STATIC_DRAW);
+        glNamedBufferData(_rendererId, count * sizeof(uint32_t), data, GL_STATIC_DRAW);
         _count = count;
     }
 

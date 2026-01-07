@@ -22,24 +22,19 @@ namespace Skater {
 
     void GlFramebuffer::Init() {
         // Create FBO and bind
-        glGenFramebuffers(1, &_fboId);
-        glBindFramebuffer(GL_FRAMEBUFFER, _fboId);
+        glCreateFramebuffers(1, &_fboId);
 
         // Create and attach texture
         constexpr TextureSpecification spec (ImageFormat::RGB, FilterMode::Nearest, WrapMode::Clamp);
         _texture = Texture::CreateEmpty(_width, _height, spec);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _texture->GetId(), 0);
+        glNamedFramebufferTexture(_fboId, GL_COLOR_ATTACHMENT0, _texture->GetId(), 0);
 
         // Depth and Stencil Renderbuffer
         glGenRenderbuffers(1, &_depthStencilRboId);
-        glBindRenderbuffer(GL_RENDERBUFFER, _depthStencilRboId);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, _width, _height);
-
-        // Unbind Renderbuffer after configuration
-        glBindRenderbuffer(GL_RENDERBUFFER, 0);
+        glNamedRenderbufferStorage(_depthStencilRboId, GL_DEPTH24_STENCIL8, _width, _height);
 
         // Link Depth/Stencil renderbuffer to FBO
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depthStencilRboId);
+        glNamedFramebufferRenderbuffer(_fboId, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depthStencilRboId);
     }
 
     void GlFramebuffer::Bind() const {

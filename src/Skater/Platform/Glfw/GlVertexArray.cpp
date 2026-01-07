@@ -12,16 +12,11 @@ namespace Skater {
         constexpr uint32_t POS_SIZE = 2;
         constexpr uint32_t COLOR_SIZE = 4;
         constexpr uint32_t TEX_COORDS_SIZE = 2;
-        // constexpr uint32_t TEX_ID_SIZE = 1;
-        // constexpr uint32_t ENTITY_ID_SIZE = 1;
 
         constexpr uint32_t POS_OFFSET = 0;
         constexpr uint32_t COLOR_OFFSET = POS_OFFSET + POS_SIZE * sizeof(float);
         constexpr uint32_t TEX_COORDS_OFFSET = COLOR_OFFSET + COLOR_SIZE * sizeof(uint32_t);
-        // constexpr uint32_t TEX_ID_OFFSET = TEX_COORDS_OFFSET + TEX_COORDS_SIZE * sizeof(float);
-        // constexpr uint32_t ENTITY_ID_OFFSET = TEX_ID_OFFSET + TEX_ID_SIZE * sizeof(float);
 
-        // constexpr uint32_t VERTEX_SIZE = POS_SIZE + COLOR_SIZE + TEX_COORDS_SIZE + TEX_ID_SIZE + ENTITY_ID_SIZE;
         constexpr uint32_t VERTEX_SIZE = POS_SIZE + COLOR_SIZE + TEX_COORDS_SIZE;
         constexpr uint32_t VERTEX_SIZE_BYTES = VERTEX_SIZE * sizeof(float);
     }
@@ -44,28 +39,23 @@ namespace Skater {
 
     void GlVertexArray::SetVertexBuffer(VertexBuffer *buffer) {
         _vertexBuffer = buffer;
-        glBindVertexArray(_vaoId);
-        buffer->Bind();
+        glVertexArrayVertexBuffer(_vaoId, 0, buffer->GetId(), 0, VERTEX_SIZE_BYTES);
 
-        glVertexAttribPointer(0, POS_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(POS_OFFSET));
-        glEnableVertexAttribArray(0);
+        glVertexArrayAttribFormat(_vaoId, 0, POS_SIZE, GL_FLOAT, GL_FALSE, POS_OFFSET);
+        glEnableVertexArrayAttrib(_vaoId, 0);
+        glVertexArrayAttribBinding(_vaoId, 0, 0);
 
-        glVertexAttribPointer(1, COLOR_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(COLOR_OFFSET));
-        glEnableVertexAttribArray(1);
+        glVertexArrayAttribFormat(_vaoId, 1, COLOR_SIZE, GL_FLOAT, GL_FALSE, COLOR_OFFSET);
+        glEnableVertexArrayAttrib(_vaoId, 1);
+        glVertexArrayAttribBinding(_vaoId, 1, 0);
 
-        glVertexAttribPointer(2, TEX_COORDS_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(TEX_COORDS_OFFSET));
-        glEnableVertexAttribArray(2);
-
-        // glVertexAttribPointer(3, TEX_ID_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(TEX_ID_OFFSET));
-        // glEnableVertexAttribArray(3);
-        //
-        // glVertexAttribPointer(4, ENTITY_ID_SIZE, GL_FLOAT, GL_FALSE, VERTEX_SIZE_BYTES, reinterpret_cast<void *>(ENTITY_ID_OFFSET));
-        // glEnableVertexAttribArray(4);
+        glVertexArrayAttribFormat(_vaoId, 2, TEX_COORDS_SIZE, GL_FLOAT, GL_FALSE, TEX_COORDS_OFFSET);
+        glEnableVertexArrayAttrib(_vaoId, 2);
+        glVertexArrayAttribBinding(_vaoId, 2, 0);
     }
 
     void GlVertexArray::SetIndexBuffer(IndexBuffer *buffer) {
-        glBindVertexArray(_vaoId);
-        buffer->Bind();
+        glVertexArrayElementBuffer(_vaoId, buffer->GetId());
         _indexBuffer = buffer;
     }
 }

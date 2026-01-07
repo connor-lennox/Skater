@@ -9,7 +9,16 @@
 namespace Skater {
     class GlTextureUtil {
     public:
-        static GLenum ImageFormatToGl(const ImageFormat format) {
+        static GLenum ImageFormatToGlInternalFormat(const ImageFormat format) {
+            switch (format) {
+                case ImageFormat::RGB: return GL_RGB8;
+                case ImageFormat::RGBA: return GL_RGBA8;
+            }
+
+            return 0;
+        }
+
+        static GLenum ImageFormatToGlFormat(const ImageFormat format) {
             switch (format) {
                 case ImageFormat::RGB: return GL_RGB;
                 case ImageFormat::RGBA: return GL_RGBA;

@@ -16,6 +16,8 @@ namespace Skater {
 
         void SetData(const void *data, uint32_t size) override;
 
+        [[nodiscard]] uint32_t GetId() const override { return _rendererId; }
+
         void Bind() const override;
         void Unbind() const override;
     private:
@@ -30,6 +32,8 @@ namespace Skater {
         ~GlIndexBuffer() override;
 
         void SetData(const void *data, uint32_t count) override;
+
+        [[nodiscard]] uint32_t GetId() const override { return _rendererId; }
 
         void Bind() const override;
         void Unbind() const override;

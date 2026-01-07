@@ -9,6 +9,7 @@
 
 namespace Skater {
     Texture *ResourceDatabase::LoadTexture(const std::string &filename) {
+        // // TODO: Fix cache
         // if (_textureCache.contains(filename)) {
         //     return _textureCache.at(filename);
         // }
