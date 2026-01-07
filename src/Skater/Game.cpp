@@ -40,6 +40,7 @@ namespace Skater {
                 break;
             case EventType::WindowResize:
                 UpdateRenderTargetDest();
+                Draw();
                 break;
             case EventType::WindowFocus:
                 break;
@@ -81,21 +82,26 @@ namespace Skater {
 
             if (_currentScene != nullptr) {
                 _currentScene->Update();
-
-                _backbuffer->Bind();
-                RenderCommand::SetRenderViewportSize(_backbuffer->GetWidth(), _backbuffer->GetHeight());
-                RenderCommand::Clear();
-
-                _renderer->Start();
-                _currentScene->Render();
-                _renderer->Finish();
-
-                RenderCommand::SetRenderViewportSize(_window->GetWidth(), _window->GetHeight());
-                _backbuffer->BlitToScreen(_renderTargetDest);
+                Draw();
             }
 
             _window->OnUpdate();
         }
+    }
+
+    void Game::Draw() const {
+        _backbuffer->Bind();
+        RenderCommand::SetRenderViewportSize(_backbuffer->GetWidth(), _backbuffer->GetHeight());
+        RenderCommand::Clear();
+
+        if (_currentScene != nullptr) {
+            _renderer->Start();
+            _currentScene->Render();
+            _renderer->Finish();
+        }
+
+        RenderCommand::SetRenderViewportSize(_window->GetWidth(), _window->GetHeight());
+        _backbuffer->BlitToScreen(_renderTargetDest);
     }
 
     void Game::SetScene(Scene *scene) {

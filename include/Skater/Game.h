@@ -18,6 +18,8 @@ namespace Skater {
         virtual void Setup() {}
         void Run();
 
+        void Draw() const;
+
         void OnEvent(Event& event);
 
         [[nodiscard]] Renderer* GetRenderer() const { return _renderer; }
