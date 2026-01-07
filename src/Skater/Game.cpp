@@ -84,6 +84,8 @@ namespace Skater {
 
                 _backbuffer->Bind();
                 RenderCommand::SetRenderViewportSize(_backbuffer->GetWidth(), _backbuffer->GetHeight());
+                RenderCommand::Clear();
+
                 _renderer->Start();
                 _currentScene->Render();
                 _renderer->Finish();
