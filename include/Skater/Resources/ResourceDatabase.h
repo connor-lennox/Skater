@@ -13,6 +13,6 @@ namespace Skater {
     public:
         static Texture* LoadTexture(const std::string &filename);
     private:
-        static std::unordered_map<std::string, Texture*> _textureCache;
+        inline static std::unordered_map<std::string, Texture*> _textureCache;
     };
 }
