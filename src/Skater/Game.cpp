@@ -114,6 +114,7 @@ namespace Skater {
             delete _backbuffer;
         }
         _backbuffer = Framebuffer::Create(width, height);
+        UpdateRenderTargetDest();
     }
 
     Game& Game::GetInstance() {
