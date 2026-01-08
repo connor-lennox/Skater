@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "InputAction.h"
+#include "InputEvent.h"
 #include "Keyboard.h"
 #include "Key.h"
 #include "Mouse.h"
@@ -15,6 +16,7 @@ namespace Skater {
     public:
         static void Update();
 
+        static void ProcessInputEvent(InputEvent& event);
         static void RegisterAction(InputAction* action);
 
         static bool IsKeyPressed(Key key);

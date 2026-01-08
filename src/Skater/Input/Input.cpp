@@ -19,6 +19,43 @@ namespace Skater {
         }
     }
 
+    void Input::ProcessInputEvent(InputEvent &event) {
+        switch (event.GetEventType()) {
+            case InputEventType::None:
+                break;
+            case InputEventType::KeyPressed: {
+                const auto keyPressEvent = dynamic_cast<KeyPressedInputEvent &>(event);
+                Keyboard::SetKey(keyPressEvent.GetKey());
+                break;
+            }
+            case InputEventType::KeyReleased: {
+                const auto keyReleaseEvent = dynamic_cast<KeyReleasedInputEvent &>(event);
+                Keyboard::ClearKey(keyReleaseEvent.GetKey());
+                break;
+            }
+            case InputEventType::MouseButtonPressed: {
+                const auto mousePressEvent = dynamic_cast<MouseButtonPressedInputEvent &>(event);
+                Mouse::SetButton(mousePressEvent.GetMouseButton());
+                break;
+            }
+            case InputEventType::MouseButtonReleased: {
+                const auto mouseReleaseEvent = dynamic_cast<MouseButtonReleasedInputEvent &>(event);
+                Mouse::ClearButton(mouseReleaseEvent.GetMouseButton());
+                break;
+            }
+            case InputEventType::MouseMoved: {
+                const auto mouseMoveEvent = dynamic_cast<MouseMovedInputEvent &>(event);
+                Mouse::SetPosition(mouseMoveEvent.GetMousePosition());
+                break;
+            }
+            case InputEventType::MouseScrolled:
+                break;
+            case InputEventType::JoystickUpdated:
+                break;
+            default: break;
+        }
+    }
+
     void Input::RegisterAction(InputAction* action) {
         _actions.push_back(action);
     }

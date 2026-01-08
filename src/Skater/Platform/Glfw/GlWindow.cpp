@@ -9,8 +9,7 @@
 #include "GlKeyUtil.h"
 #include "Skater/Window.h"
 #include "Skater/Events/WindowEvent.h"
-#include "Skater/Input/Keyboard.h"
-#include "Skater/Input/Mouse.h"
+#include "Skater/Input/Input.h"
 
 namespace Skater {
     static bool GLFWInitialized = false;
@@ -62,11 +61,13 @@ namespace Skater {
         glfwSetKeyCallback(_window, [](GLFWwindow* /*window*/, const int key, int /*scancode*/, const int action, int /*mods*/) {
             switch (action) {
                 case GLFW_PRESS: {
-                    Keyboard::SetKey(GlKeyUtil::GlfwKeyToKey(key));
+                    KeyPressedInputEvent event(GlKeyUtil::GlfwKeyToKey(key));
+                    Input::ProcessInputEvent(event);
                     break;
                 }
                 case GLFW_RELEASE: {
-                    Keyboard::ClearKey(GlKeyUtil::GlfwKeyToKey(key));
+                    KeyReleasedInputEvent event(GlKeyUtil::GlfwKeyToKey(key));
+                    Input::ProcessInputEvent(event);
                     break;
                 }
                 default: break;
@@ -74,17 +75,22 @@ namespace Skater {
         });
 
         glfwSetCursorPosCallback(_window, [](GLFWwindow* /*window*/, const double xpos, const double ypos) {
-            Mouse::SetPosition(Vector2(static_cast<float>(xpos), static_cast<float>(ypos)));
+            MouseMovedInputEvent event(Vector2(static_cast<float>(xpos), static_cast<float>(ypos)));
+            Input::ProcessInputEvent(event);
         });
 
         glfwSetMouseButtonCallback(_window, [](GLFWwindow* /*window*/, const int button, const int action, int /*mods*/) {
             switch (action) {
-                case GLFW_PRESS:
-                    Mouse::SetButton(GlKeyUtil::GlfwMouseButtonToMouseButton(button));
+                case GLFW_PRESS: {
+                    MouseButtonPressedInputEvent event(GlKeyUtil::GlfwMouseButtonToMouseButton(button));
+                    Input::ProcessInputEvent(event);
                     break;
-                case GLFW_RELEASE:
-                    Mouse::ClearButton(GlKeyUtil::GlfwMouseButtonToMouseButton(button));
+                }
+                case GLFW_RELEASE: {
+                    MouseButtonReleasedInputEvent event(GlKeyUtil::GlfwMouseButtonToMouseButton(button));
+                    Input::ProcessInputEvent(event);
                     break;
+                }
                 default: break;
             }
         });
