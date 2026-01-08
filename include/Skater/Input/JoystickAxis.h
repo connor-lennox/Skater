@@ -8,11 +8,18 @@
 namespace Skater {
     enum class JoystickAxis : uint8_t {
         None = 0,
-        LeftX = 1,
-        LeftY = 2,
-        RightX = 3,
-        RightY = 4,
-        LeftTrigger = 5,
-        RightTrigger = 6
+
+        LeftStickRight = 1,
+        LeftStickLeft = 2,
+        LeftStickUp = 3,
+        LeftStickDown = 4,
+
+        RightStickRight = 5,
+        RightStickLeft = 6,
+        RightStickUp = 7,
+        RightStickDown = 8,
+
+        LeftTrigger = 9,
+        RightTrigger = 10
     };
 }
