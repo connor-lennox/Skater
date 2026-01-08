@@ -196,8 +196,8 @@ namespace Skater {
 
             gamepadState.SetLeftThumbstick(Vector2(glfwState.axes[GLFW_GAMEPAD_AXIS_LEFT_X], glfwState.axes[GLFW_GAMEPAD_AXIS_LEFT_Y]));
             gamepadState.SetRightThumbstick(Vector2(glfwState.axes[GLFW_GAMEPAD_AXIS_RIGHT_X], glfwState.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]));
-            gamepadState.SetLeftTrigger(glfwState.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER]);
-            gamepadState.SetRightTrigger(glfwState.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER]);
+            gamepadState.SetLeftTrigger((glfwState.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER] + 1) / 2);
+            gamepadState.SetRightTrigger((glfwState.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] + 1) / 2);
 
             return gamepadState;
         }
