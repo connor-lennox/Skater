@@ -10,6 +10,7 @@
 #include "Skater/Window.h"
 #include "Skater/Events/WindowEvent.h"
 #include "Skater/Input/Keyboard.h"
+#include "Skater/Input/Mouse.h"
 
 namespace Skater {
     static bool GLFWInitialized = false;
@@ -49,7 +50,7 @@ namespace Skater {
             data.EventCallback(event);
         });
 
-        glfwSetWindowSizeCallback(_window, [](GLFWwindow* window, int width, int height) {
+        glfwSetWindowSizeCallback(_window, [](GLFWwindow* window, const int width, const int height) {
             WindowData& data = *static_cast<WindowData *>(glfwGetWindowUserPointer(window));
             data.Width = width;
             data.Height = height;
@@ -58,16 +59,32 @@ namespace Skater {
             data.EventCallback(event);
         });
 
-        glfwSetKeyCallback(_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+        glfwSetKeyCallback(_window, [](GLFWwindow* /*window*/, const int key, int /*scancode*/, const int action, int /*mods*/) {
             switch (action) {
                 case GLFW_PRESS: {
-                    Keyboard::SetKey(GlKeyUtil::GlfwKeyToKeys(key));
+                    Keyboard::SetKey(GlKeyUtil::GlfwKeyToKey(key));
                     break;
                 }
                 case GLFW_RELEASE: {
-                    Keyboard::ClearKey(GlKeyUtil::GlfwKeyToKeys(key));
+                    Keyboard::ClearKey(GlKeyUtil::GlfwKeyToKey(key));
                     break;
                 }
+                default: break;
+            }
+        });
+
+        glfwSetCursorPosCallback(_window, [](GLFWwindow* /*window*/, const double xpos, const double ypos) {
+            Mouse::SetPosition(Vector2(static_cast<float>(xpos), static_cast<float>(ypos)));
+        });
+
+        glfwSetMouseButtonCallback(_window, [](GLFWwindow* /*window*/, const int button, const int action, int /*mods*/) {
+            switch (action) {
+                case GLFW_PRESS:
+                    Mouse::SetButton(GlKeyUtil::GlfwMouseButtonToMouseButton(button));
+                    break;
+                case GLFW_RELEASE:
+                    Mouse::ClearButton(GlKeyUtil::GlfwMouseButtonToMouseButton(button));
+                    break;
                 default: break;
             }
         });

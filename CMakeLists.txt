@@ -15,7 +15,6 @@ add_subdirectory("lib/glad")
 add_library(${PROJECT_NAME} STATIC
         src/Skater/Game.cpp
         src/Skater/Platform/Glfw/GlWindow.cpp
-        src/Skater/Input/KeyboardState.cpp
         src/Skater/Input/Keyboard.cpp
         src/Skater/Input/Input.cpp
         src/Skater/Platform/Glfw/GlBuffers.cpp
@@ -40,8 +39,10 @@ add_library(${PROJECT_NAME} STATIC
         src/Skater/StbInit.cpp
         src/Skater/Resources/ResourceDatabase.cpp
         src/Skater/Platform/Glfw/GlShader.cpp
-        src/Skater/Platform/Glfw/GlShader.h
         src/Skater/Renderer/Shader.cpp
+        src/Skater/Input/InputAction.cpp
+        src/Skater/Input/InputBinding.cpp
+        src/Skater/Input/Mouse.cpp
 )
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE lib/stb)

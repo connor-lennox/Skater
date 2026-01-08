@@ -4,7 +4,7 @@
 
 #pragma once
 namespace Skater {
-	enum class Keys : uint16_t {
+	enum class Key : uint16_t {
 		None = 0,
 		Backspace = 8,
 		Tab = 9,
