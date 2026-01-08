@@ -25,9 +25,9 @@ namespace Skater {
     public:
         virtual ~InputEvent() = default;
 
-        virtual InputEventType GetEventType() const = 0;
-        virtual const char* GetName() const = 0;
-        virtual std::string ToString() const { return GetName(); }
+        [[nodiscard]] virtual InputEventType GetEventType() const = 0;
+        [[nodiscard]] virtual const char* GetName() const = 0;
+        [[nodiscard]] virtual std::string ToString() const { return GetName(); }
     };
 
 
@@ -35,7 +35,7 @@ namespace Skater {
     public:
         explicit KeyPressedInputEvent(const Key key) : _key(key) {}
 
-        Key GetKey() const { return _key; }
+        [[nodiscard]] Key GetKey() const { return _key; }
 
         INPUT_EVENT_CLASS_TYPE(KeyPressed)
     private:
@@ -47,7 +47,7 @@ namespace Skater {
     public:
         explicit KeyReleasedInputEvent(const Key key) : _key(key) {}
 
-        Key GetKey() const { return _key; }
+        [[nodiscard]] Key GetKey() const { return _key; }
 
         INPUT_EVENT_CLASS_TYPE(KeyReleased)
     private:
@@ -59,7 +59,7 @@ namespace Skater {
     public:
         explicit MouseButtonPressedInputEvent(const MouseButton button) : _button(button) {}
 
-        MouseButton GetMouseButton() const { return _button; }
+        [[nodiscard]] MouseButton GetMouseButton() const { return _button; }
 
         INPUT_EVENT_CLASS_TYPE(MouseButtonPressed)
     private:
@@ -71,7 +71,7 @@ namespace Skater {
     public:
         explicit MouseButtonReleasedInputEvent(const MouseButton button) : _button(button) {}
 
-        MouseButton GetMouseButton() const { return _button; }
+        [[nodiscard]] MouseButton GetMouseButton() const { return _button; }
 
         INPUT_EVENT_CLASS_TYPE(MouseButtonReleased)
     private:
@@ -83,7 +83,7 @@ namespace Skater {
     public:
         explicit MouseMovedInputEvent(const Vector2 position) : _position(position) {}
 
-        Vector2 GetMousePosition() const { return _position; }
+        [[nodiscard]] Vector2 GetMousePosition() const { return _position; }
 
         INPUT_EVENT_CLASS_TYPE(MouseMoved)
     private:
@@ -95,10 +95,24 @@ namespace Skater {
     public:
         explicit MouseScrolledInputEvent(const float amount) : _amount(amount) {}
 
-        float GetScrollAmount() const { return _amount; }
+        [[nodiscard]] float GetScrollAmount() const { return _amount; }
 
         INPUT_EVENT_CLASS_TYPE(MouseScrolled)
     private:
         float _amount;
+    };
+
+
+    class JoystickUpdatedInputEvent final : public InputEvent {
+    public:
+        JoystickUpdatedInputEvent(const GamepadState &state, const uint8_t gamepadIdx) : _state(state), _gamepadIdx(gamepadIdx) {}
+
+        [[nodiscard]] GamepadState GetGamepadState() const { return _state; }
+        [[nodiscard]] uint8_t GetGamepadIdx() const { return _gamepadIdx; }
+
+        INPUT_EVENT_CLASS_TYPE(JoystickUpdated)
+    private:
+        GamepadState _state;
+        uint8_t _gamepadIdx;
     };
 }

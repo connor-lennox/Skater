@@ -50,8 +50,15 @@ namespace Skater {
             }
             case InputEventType::MouseScrolled:
                 break;
-            case InputEventType::JoystickUpdated:
+            case InputEventType::JoystickUpdated: {
+                const auto joystickEvent = dynamic_cast<JoystickUpdatedInputEvent &>(event);
+                const auto idx = joystickEvent.GetGamepadIdx();
+                if (idx >= MAX_GAMEPADS) {
+                    break;
+                }
+                _gamepads[idx].UpdateState(joystickEvent.GetGamepadState());
                 break;
+            }
             default: break;
         }
     }
@@ -78,5 +85,40 @@ namespace Skater {
 
     Vector2 Input::GetMousePosition() {
         return _currentMouseState.GetPosition();
+    }
+
+    bool Input::IsJoystickButtonPressed(const JoystickButton button, const int8_t gamepadIdx) {
+        // "Any joystick" - returns true if any are true
+        if (gamepadIdx == -1) {
+            for (auto gamepad : _gamepads) {
+                if (gamepad.GetButton(button)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        if (gamepadIdx >= MAX_GAMEPADS) {
+            return false;
+        }
+
+        return _gamepads[gamepadIdx].GetButton(button);
+    }
+
+    float Input::GetJoystickAxis(const JoystickAxis axis, const int8_t gamepadIdx) {
+        // "Any joystick" - returns max value
+        if (gamepadIdx == -1) {
+            auto val = 0.0f;
+            for (auto gamepad : _gamepads) {
+                val = std::max(val, gamepad.GetAxis(axis));
+            }
+            return val;
+        }
+
+        if (gamepadIdx >= MAX_GAMEPADS) {
+            return 0.0f;
+        }
+
+        return _gamepads[gamepadIdx].GetAxis(axis);
     }
 }

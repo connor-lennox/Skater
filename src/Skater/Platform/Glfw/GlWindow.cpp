@@ -6,6 +6,7 @@
 
 #include "GlWindow.h"
 
+#include "embedded_resources.h"
 #include "GlKeyUtil.h"
 #include "Skater/Window.h"
 #include "Skater/Events/WindowEvent.h"
@@ -94,14 +95,31 @@ namespace Skater {
                 default: break;
             }
         });
+
+        // Setup joystick mappings
+        glfwUpdateGamepadMappings(reinterpret_cast<const char *>(resources_gamecontrollerdb_txt_data));
     }
 
     void GlWindow::Shutdown() const {
         glfwDestroyWindow(_window);
     }
 
+    void GlWindow::UpdateJoysticks() const {
+        for (auto i = 0; i <= GLFW_JOYSTICK_LAST; i++) {
+            if (glfwJoystickIsGamepad(i)) {
+                GLFWgamepadstate state;
+                glfwGetGamepadState(i, &state);
+                auto newState = GlKeyUtil::GlfwGamepadStateToGamepadState(state);
+
+                JoystickUpdatedInputEvent event(newState, i);
+                Input::ProcessInputEvent(event);
+            }
+        }
+    }
+
     void GlWindow::OnUpdate() {
         glfwPollEvents();
+        UpdateJoysticks();
         glfwSwapBuffers(_window);
     }
 

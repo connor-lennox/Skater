@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 include(cmake/EmbedResources.cmake)
 
 SET(RESOURCE_FILES
+    "resources/gamecontrollerdb.txt"
     "resources/shaders/default_vertex.glsl"
     "resources/shaders/default_fragment.glsl"
 )
@@ -43,7 +44,9 @@ add_library(${PROJECT_NAME} STATIC
         src/Skater/Input/InputAction.cpp
         src/Skater/Input/InputBinding.cpp
         src/Skater/Input/Mouse.cpp
+        src/Skater/Input/Gamepad.cpp
 )
+
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE lib/stb)
 

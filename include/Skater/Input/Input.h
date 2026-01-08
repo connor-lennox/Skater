@@ -5,6 +5,7 @@
 #pragma once
 #include <vector>
 
+#include "Gamepad.h"
 #include "InputAction.h"
 #include "InputEvent.h"
 #include "Keyboard.h"
@@ -25,7 +26,12 @@ namespace Skater {
 
         static bool IsMouseButtonPressed(MouseButton button);
         static Vector2 GetMousePosition();
+
+        static bool IsJoystickButtonPressed(JoystickButton button, int8_t gamepadIdx);
+        static float GetJoystickAxis(JoystickAxis axis, int8_t gamepadIdx);
     private:
+        static constexpr uint8_t MAX_GAMEPADS = 16;
+
         static inline std::vector<InputAction*> _actions;
 
         static inline KeyboardState _previousKeyboardState;
@@ -33,5 +39,7 @@ namespace Skater {
 
         static inline MouseState _previousMouseState;
         static inline MouseState _currentMouseState;
+
+        static inline Gamepad _gamepads[MAX_GAMEPADS];
     };
 }

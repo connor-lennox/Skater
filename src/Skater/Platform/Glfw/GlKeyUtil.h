@@ -5,6 +5,7 @@
 #pragma once
 #include <GLFW/glfw3.h>
 
+#include "Skater/Input/Gamepad.h"
 #include "Skater/Input/Key.h"
 #include "Skater/Input/MouseButton.h"
 
@@ -160,6 +161,45 @@ namespace Skater {
 
                 default: return MouseButton::None;
             }
+        }
+
+        static JoystickButton GlfwGamepadButtonToJoystickButton(const int gamepadButton) {
+            switch (gamepadButton) {
+                case GLFW_GAMEPAD_BUTTON_A: return JoystickButton::A;
+                case GLFW_GAMEPAD_BUTTON_B: return JoystickButton::B;
+                case GLFW_GAMEPAD_BUTTON_X: return JoystickButton::X;
+                case GLFW_GAMEPAD_BUTTON_Y: return JoystickButton::Y;
+                case GLFW_GAMEPAD_BUTTON_LEFT_BUMPER: return JoystickButton::LeftBumper;
+                case GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER: return JoystickButton::RightBumper;
+                case GLFW_GAMEPAD_BUTTON_BACK: return JoystickButton::Back;
+                case GLFW_GAMEPAD_BUTTON_START: return JoystickButton::Start;
+                case GLFW_GAMEPAD_BUTTON_GUIDE: return JoystickButton::Guide;
+                case GLFW_GAMEPAD_BUTTON_LEFT_THUMB: return JoystickButton::LeftStick;
+                case GLFW_GAMEPAD_BUTTON_RIGHT_THUMB: return JoystickButton::RightStick;
+                case GLFW_GAMEPAD_BUTTON_DPAD_UP: return JoystickButton::DPadUp;
+                case GLFW_GAMEPAD_BUTTON_DPAD_DOWN: return JoystickButton::DPadDown;
+                case GLFW_GAMEPAD_BUTTON_DPAD_LEFT: return JoystickButton::DPadLeft;
+                case GLFW_GAMEPAD_BUTTON_DPAD_RIGHT: return JoystickButton::DPadRight;
+
+                default: return JoystickButton::None;
+            }
+        }
+
+        static GamepadState GlfwGamepadStateToGamepadState(const GLFWgamepadstate& glfwState) {
+            GamepadState gamepadState;
+
+            for (auto button = 0; button <= GLFW_GAMEPAD_BUTTON_LAST; button++) {
+                if (glfwState.buttons[button]) {
+                    gamepadState.SetButton(GlfwGamepadButtonToJoystickButton(button));
+                }
+            }
+
+            gamepadState.SetLeftThumbstick(Vector2(glfwState.axes[GLFW_GAMEPAD_AXIS_LEFT_X], glfwState.axes[GLFW_GAMEPAD_AXIS_LEFT_Y]));
+            gamepadState.SetRightThumbstick(Vector2(glfwState.axes[GLFW_GAMEPAD_AXIS_RIGHT_X], glfwState.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]));
+            gamepadState.SetLeftTrigger(glfwState.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER]);
+            gamepadState.SetRightTrigger(glfwState.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER]);
+
+            return gamepadState;
         }
     };
 }

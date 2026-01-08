@@ -44,7 +44,7 @@ namespace Skater {
         if (button == MouseButton::None) {
             return false;
         }
-        return _buttonMask & 1 << (static_cast<int>(button) - 1) > 0;
+        return (_buttonMask & 1 << (static_cast<int>(button) - 1)) != 0;
     }
 
 }

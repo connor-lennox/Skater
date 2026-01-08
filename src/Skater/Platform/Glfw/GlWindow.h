@@ -35,5 +35,6 @@ namespace Skater {
 
         void Init(const WindowProperties& props);
         void Shutdown() const;
+        void UpdateJoysticks() const;
     };
 }

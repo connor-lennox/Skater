@@ -34,14 +34,20 @@ namespace Skater {
     class JoystickButtonInputBinding final : public InputBinding {
     public:
         explicit JoystickButtonInputBinding(const JoystickButton button) : JoystickButtonInputBinding(button, -1) {}
-        JoystickButtonInputBinding(JoystickButton button, int joystickIdx);
+        JoystickButtonInputBinding(JoystickButton button, int8_t gamepadIdx);
         float GetValue() override;
+    private:
+        JoystickButton _button = JoystickButton::None;
+        int8_t _gamepadIdx = -1;
     };
 
     class JoystickAxisInputBinding final : public InputBinding {
     public:
         explicit JoystickAxisInputBinding(const JoystickAxis axis) : JoystickAxisInputBinding(axis, -1) {}
-        JoystickAxisInputBinding(JoystickAxis axis, int joystickIdx);
+        JoystickAxisInputBinding(JoystickAxis axis, int8_t gamepadIdx);
         float GetValue() override;
+    private:
+        JoystickAxis _axis = JoystickAxis::None;
+        int8_t _gamepadIdx = -1;
     };
 }

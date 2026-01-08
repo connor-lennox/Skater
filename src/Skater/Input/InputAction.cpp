@@ -4,6 +4,8 @@
 
 #include "Skater/Input/InputAction.h"
 
+#include <cstdio>
+
 namespace Skater {
     InputAction::~InputAction() {
         // Bindings should be owned only by a single Action
