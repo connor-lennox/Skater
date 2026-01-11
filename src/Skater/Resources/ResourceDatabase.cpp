@@ -28,7 +28,7 @@ namespace Skater {
         return res;
     }
 
-    Texture *ResourceDatabase::LoadTextureFromBytes(uint8_t bytes[], const uint32_t len) {
+    Texture *ResourceDatabase::LoadTextureFromBytes(const uint8_t bytes[], const uint32_t len) {
         int x, y, n;
         const auto imageData = stbi_load_from_memory(bytes, len, &x, &y, &n, 0);
         const auto imageFormat = n == 4 ? ImageFormat::RGBA : ImageFormat::RGB;
@@ -56,7 +56,7 @@ namespace Skater {
         return fontSystem;
     }
 
-    FontSystem * ResourceDatabase::LoadFontSystemFromBytes(uint8_t bytes[]) {
+    FontSystem * ResourceDatabase::LoadFontSystemFromBytes(const uint8_t bytes[]) {
         return new FontSystem(bytes);
     }
 
@@ -74,7 +74,7 @@ namespace Skater {
         return audioStream;
     }
 
-    AudioStream * ResourceDatabase::LoadAudioStreamFromBytes(uint8_t bytes[], const uint32_t len) {
+    AudioStream * ResourceDatabase::LoadAudioStreamFromBytes(const uint8_t bytes[], const uint32_t len) {
         const auto wav = new Wav();
         wav->loadMem(bytes, len, true, true);
 

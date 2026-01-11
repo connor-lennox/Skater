@@ -26,10 +26,9 @@ function(embed_resources)
         string(REGEX REPLACE "[^a-zA-Z0-9_]" "_" RESOURCE_NAME "${RESOURCE}")
 
         # Read resource as binary data
-        file(READ "${RESOURCE_ABSOLUTE}" RESOURCE_DATA BINARY)
+        file(READ "${RESOURCE_ABSOLUTE}" HEX_DATA HEX)
 
         # Convert binary data to C++ hex array (e.g., 0xDE, 0xAD, 0xBE, 0xEF, ...)
-        string(HEX "${RESOURCE_DATA}" HEX_DATA)
         string(LENGTH "${HEX_DATA}" HEX_LENGTH)
         math(EXPR NUM_BYTES "${HEX_LENGTH} / 2")
         string(REGEX REPLACE "([0-9a-f][0-9a-f])" "0x\\1," ARRAY_DATA ${HEX_DATA})
