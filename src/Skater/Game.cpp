@@ -77,9 +77,10 @@ namespace Skater {
     }
 
     void Game::Run() {
-        Setup();
-
+        // Default clear color, should get set again by Setup()
         RenderCommand::SetClearColor(Color::CornflowerBlue);
+
+        Setup();
 
         while(_running)
         {
