@@ -42,22 +42,19 @@ namespace Skater {
 
         const auto itemsToDraw = _batchItemIndex;
 
-        uint32_t itemIndex;
-        uint32_t batchStart = 0;
         uint32_t batchSize = 0;
         const Texture* lastTexture = nullptr;
 
         // Iterate until we've drawn everything
-        for (itemIndex = 0; itemIndex < itemsToDraw; itemIndex++) {
+        for (uint32_t itemIndex = 0; itemIndex < itemsToDraw; itemIndex++) {
             const auto item = _batchItems[itemIndex];
 
             // Mid-work flush if we hit max size or the texture changed
             if (item.ItemTexture != lastTexture || batchSize == MAX_BATCH_SIZE) {
-                FlushVertexArray(batchStart, batchSize * 4, lastTexture);
+                FlushVertexArray(0, batchSize * 4, lastTexture);
 
                 lastTexture = item.ItemTexture;
 
-                batchStart = itemIndex;
                 batchSize = 0;
             }
 
@@ -69,7 +66,7 @@ namespace Skater {
         }
 
         // Flush out anything remaining
-        FlushVertexArray(batchStart, itemIndex * 4, lastTexture);
+        FlushVertexArray(0, batchSize * 4, lastTexture);
 
         // Reset batch item index, we've drawn this batch (effectively return everything to the pool)
         _batchItemIndex = 0;
