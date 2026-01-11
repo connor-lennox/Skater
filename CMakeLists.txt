@@ -50,6 +50,9 @@ add_library(${PROJECT_NAME} STATIC
         src/Skater/Text/Font.cpp
         src/Skater/Text/FontSystem.cpp
         src/Skater/Components/TextRenderer.cpp
+        src/Skater/Audio/AudioEngine.cpp
+        src/Skater/Audio/AudioStream.cpp
+        src/Skater/Components/AudioStreamPlayer.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)

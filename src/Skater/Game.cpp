@@ -4,6 +4,7 @@
 
 #include "Skater/Game.h"
 
+#include "Skater/Audio/AudioEngine.h"
 #include "Skater/Events/Event.h"
 #include "Skater/Events/WindowEvent.h"
 #include "Skater/Input/Input.h"
@@ -23,6 +24,8 @@ namespace Skater {
         _renderer = new Renderer();
         _backbuffer = Framebuffer::Create(384, 216);
         UpdateRenderTargetDest();
+
+        AudioEngine::Init();
 
         _staticGame = this;
     }
@@ -69,6 +72,10 @@ namespace Skater {
         }
     }
 
+    void Game::Cleanup() {
+        AudioEngine::Destroy();
+    }
+
     void Game::Run() {
         Setup();
 
@@ -87,6 +94,8 @@ namespace Skater {
 
             _window->OnUpdate();
         }
+
+        Cleanup();
     }
 
     void Game::Draw() const {

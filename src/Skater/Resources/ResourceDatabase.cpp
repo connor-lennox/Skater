@@ -9,6 +9,7 @@
 #include "Skater/Renderer/Texture.h"
 
 #include "stb_image.h"
+#include "Skater/Audio/AudioStream.h"
 
 namespace Skater {
     Texture *ResourceDatabase::LoadTexture(const std::string &filename) {
@@ -46,4 +47,17 @@ namespace Skater {
         return fontSystem;
     }
 
+    AudioStream * ResourceDatabase::LoadAudioStream(const std::string &filename) {
+        if (_audioStreamCache.contains(filename)) {
+            return _audioStreamCache.at(filename);
+        }
+
+        const auto wav = new Wav();
+        wav->load(filename.c_str());
+
+        const auto audioStream = new AudioStream(wav);
+        _audioStreamCache[filename] = audioStream;
+
+        return audioStream;
+    }
 }

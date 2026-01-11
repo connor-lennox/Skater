@@ -16,6 +16,9 @@ namespace Skater {
         virtual ~Game();
 
         virtual void Setup() {}
+
+        static void Cleanup();
+
         void Run();
 
         void Draw() const;
