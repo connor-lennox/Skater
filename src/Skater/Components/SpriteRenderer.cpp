@@ -31,7 +31,9 @@ namespace Skater {
 
         const auto centeringOffset = (renderArea.Size() / 2.0).ToVector2();
 
-        Game::GetInstance().GetRenderer()->Draw(_textureRegion.Tex, _entity->Position - centeringOffset + Offset, renderArea, ModulateColor, SortingLayer);
+        const auto finalPos = (_entity->Position - centeringOffset + Offset).Floor();
+
+        Game::GetInstance().GetRenderer()->Draw(_textureRegion.Tex, finalPos, renderArea, ModulateColor, SortingLayer);
     }
 
 }

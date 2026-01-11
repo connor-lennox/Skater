@@ -3,6 +3,9 @@
 //
 
 #include "Skater/Resources/ResourceDatabase.h"
+
+#include <fstream>
+
 #include "Skater/Renderer/Texture.h"
 
 #include "stb_image.h"
@@ -23,4 +26,24 @@ namespace Skater {
 
         return res;
     }
+
+    FontSystem *ResourceDatabase::LoadFontSystem(const std::string &filename) {
+        if (_fontSystemCache.contains(filename)) {
+            return _fontSystemCache.at(filename);
+        }
+
+        std::ifstream ifs(filename, std::ios::binary|std::ios::ate);
+        const std::ifstream::pos_type pos = ifs.tellg();
+        const auto buf = new char[pos];
+
+        ifs.seekg(0, std::ios::beg);
+        ifs.read(buf, pos);
+        ifs.close();
+
+        const auto fontSystem = new FontSystem(reinterpret_cast<uint8_t*>(buf));
+        _fontSystemCache[filename] = fontSystem;
+
+        return fontSystem;
+    }
+
 }

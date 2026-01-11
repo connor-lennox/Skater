@@ -37,7 +37,8 @@ add_library(${PROJECT_NAME} STATIC
         src/Skater/Components/SpriteRenderer.cpp
         src/Skater/Core/EntityList.cpp
         src/Skater/Core/Scene.cpp
-        src/Skater/StbInit.cpp
+        src/Skater/Stb/StbImage.cpp
+        src/Skater/Stb/StbTrueType.cpp
         src/Skater/Resources/ResourceDatabase.cpp
         src/Skater/Platform/Glfw/GlShader.cpp
         src/Skater/Renderer/Shader.cpp
@@ -45,6 +46,9 @@ add_library(${PROJECT_NAME} STATIC
         src/Skater/Input/InputBinding.cpp
         src/Skater/Input/Mouse.cpp
         src/Skater/Input/Gamepad.cpp
+        src/Skater/Text/Font.cpp
+        src/Skater/Text/FontSystem.cpp
+        src/Skater/Components/TextRenderer.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)

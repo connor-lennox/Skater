@@ -7,12 +7,15 @@
 #include <unordered_map>
 
 #include "Skater/Renderer/Texture.h"
+#include "Skater/Text/FontSystem.h"
 
 namespace Skater {
     class ResourceDatabase {
     public:
         static Texture* LoadTexture(const std::string &filename);
+        static FontSystem* LoadFontSystem(const std::string &filename);
     private:
         inline static std::unordered_map<std::string, Texture*> _textureCache;
+        inline static std::unordered_map<std::string, FontSystem*> _fontSystemCache;
     };
 }
