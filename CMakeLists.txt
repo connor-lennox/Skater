@@ -12,6 +12,7 @@ SET(RESOURCE_FILES
 )
 
 add_subdirectory("lib/glad")
+add_subdirectory("lib/soloud")
 
 add_library(${PROJECT_NAME} STATIC
         src/Skater/Game.cpp
@@ -53,8 +54,10 @@ add_library(${PROJECT_NAME} STATIC
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE lib/stb)
+target_include_directories(${PROJECT_NAME} PRIVATE lib/soloud)
 
 target_link_libraries(${PROJECT_NAME} glad)
 target_link_libraries(${PROJECT_NAME} glfw)
+target_link_libraries(${PROJECT_NAME} soloud)
 
 embed_resources(TARGET ${PROJECT_NAME} RESOURCES ${RESOURCE_FILES})
