@@ -28,5 +28,6 @@ namespace Skater {
         virtual void SetMatrix4(const std::string &name, const Matrix4 &value) = 0;
 
         static Shader* Create(const uint8_t *vertexSrc, const uint8_t *fragmentSrc);
+        static Shader* CreateDefault();
     };
 }
