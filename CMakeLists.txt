@@ -5,12 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 include(cmake/EmbedResources.cmake)
 
-SET(RESOURCE_FILES
-    "resources/gamecontrollerdb.txt"
-    "resources/shaders/default_vertex.glsl"
-    "resources/shaders/default_fragment.glsl"
-)
-
 add_subdirectory("lib/glad")
 add_subdirectory("lib/soloud")
 
@@ -63,4 +57,4 @@ target_link_libraries(${PROJECT_NAME} glad)
 target_link_libraries(${PROJECT_NAME} glfw)
 target_link_libraries(${PROJECT_NAME} soloud)
 
-embed_resources(TARGET ${PROJECT_NAME} RESOURCES ${RESOURCE_FILES})
+embed_resources(TARGET ${PROJECT_NAME} DIRECTORY "resources")

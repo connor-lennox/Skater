@@ -2,9 +2,9 @@
 # Usage: embed_resources(TARGET <target> RESOURCES <resource1> [<resource2> ...])
 function(embed_resources)
     # Parse arguments
-    cmake_parse_arguments(EMBED "" "TARGET" "RESOURCES" ${ARGN})
-    if(NOT EMBED_TARGET OR NOT EMBED_RESOURCES)
-        message(FATAL_ERROR "Usage: embed_resources(TARGET <target> RESOURCES <resource1> [<resource2> ...])")
+    cmake_parse_arguments(EMBED "" "TARGET;DIRECTORY" "" ${ARGN})
+    if(NOT EMBED_TARGET OR NOT EMBED_DIRECTORY)
+        message(FATAL_ERROR "Usage: embed_resources(TARGET <target> DIRECTORY <directory>)")
     endif()
 
     # Create output directory for generated files
@@ -20,7 +20,8 @@ function(embed_resources)
     file(WRITE "${SOURCE_FILE}" "#include \"embedded_resources.h\"\n\n")
 
     # Process each resource
-    foreach(RESOURCE ${EMBED_RESOURCES})
+    file(GLOB_RECURSE embed_resources RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" CONFIGURE_DEPENDS ${EMBED_DIRECTORY}/*)
+    foreach(RESOURCE ${embed_resources})
         # Get absolute path and sanitize resource name (e.g., "shaders/vert.glsl" → "shaders_vert_glsl")
         get_filename_component(RESOURCE_ABSOLUTE "${RESOURCE}" ABSOLUTE)
         string(REGEX REPLACE "[^a-zA-Z0-9_]" "_" RESOURCE_NAME "${RESOURCE}")
