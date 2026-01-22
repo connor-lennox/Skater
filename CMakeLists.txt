@@ -47,6 +47,7 @@ add_library(${PROJECT_NAME} STATIC
         src/Skater/Audio/AudioEngine.cpp
         src/Skater/Audio/AudioStream.cpp
         src/Skater/Components/AudioStreamPlayer.cpp
+        src/Skater/Renderer/AtlasTexture.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)

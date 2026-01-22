@@ -16,7 +16,8 @@ namespace Skater {
 
     Rectangle TextureRegion::GetTextureRect() const {
         if (!SourceRect.IsEmpty()) {
-            return SourceRect;
+            // Offset this in by the texture bounds offset, necessary for AtlasTextures
+            return SourceRect.Offset(Tex->GetBounds().Location());
         }
         return Tex->GetBounds();
     }
