@@ -2,7 +2,7 @@
 // Created by connor on 1/22/26.
 //
 
-#include "Skater/Renderer/AtlasTexture.h"
+#include "Skater/Graphics/Atlas/AtlasTexture.h"
 
 namespace Skater {
     AtlasTexture::AtlasTexture(Texture *atlas, const Rectangle rect) : _atlas(atlas), _rect(rect) {}

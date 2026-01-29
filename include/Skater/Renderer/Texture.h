@@ -5,14 +5,11 @@
 #pragma once
 #include <cstdint>
 
+#include "Skater/Graphics/Image.h"
+#include "Skater/Graphics/ImageFormat.h"
 #include "Skater/Math/Rectangle.h"
 
 namespace Skater {
-    enum class ImageFormat {
-        RGB,
-        RGBA
-    };
-
     enum class FilterMode {
         Nearest,
         Linear
@@ -48,6 +45,7 @@ namespace Skater {
         [[nodiscard]] virtual Rectangle GetBounds() const = 0;
 
         static Texture* Create(uint8_t image[], uint32_t width, uint32_t height, TextureSpecification specification);
+        static Texture* Create(const Image *image);
         static Texture* CreateEmpty(uint32_t width, uint32_t height, TextureSpecification specification);
     };
 }

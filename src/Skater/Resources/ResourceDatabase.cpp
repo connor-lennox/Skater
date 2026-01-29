@@ -37,6 +37,14 @@ namespace Skater {
         return res;
     }
 
+    Image *ResourceDatabase::LoadImageFromBytes(const uint8_t bytes[], const uint32_t len) {
+        int x, y, n;
+        const auto imageData = stbi_load_from_memory(bytes, len, &x, &y, &n, 0);
+        const auto imageFormat = n == 4 ? ImageFormat::RGBA : ImageFormat::RGB;
+
+        return new Image(imageData, x, y, imageFormat);
+    }
+
     FontSystem *ResourceDatabase::LoadFontSystem(const std::string &filename) {
         if (_fontSystemCache.contains(filename)) {
             return _fontSystemCache.at(filename);

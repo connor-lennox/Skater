@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "Texture.h"
+#include "../../Renderer/Texture.h"
 
 namespace Skater {
     /// It's basically a Texture wrapper with a pre-baked TextureRegion (represented as a Rectangle).

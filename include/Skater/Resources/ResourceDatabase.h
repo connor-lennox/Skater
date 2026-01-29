@@ -17,6 +17,8 @@ namespace Skater {
         static Texture* LoadTexture(const std::string &filename);
         static Texture* LoadTextureFromBytes(const uint8_t bytes[], uint32_t len);
 
+        static Image* LoadImageFromBytes(const uint8_t bytes[], uint32_t len);
+
         static FontSystem* LoadFontSystem(const std::string &filename);
         static FontSystem* LoadFontSystemFromBytes(const uint8_t bytes[]);
 
