@@ -51,6 +51,7 @@ add_library(${PROJECT_NAME} STATIC
         src/Skater/Graphics/Image.cpp
         src/Skater/Graphics/Atlas/AtlasBuilder.cpp
         src/Skater/Graphics/Atlas/SpriteAtlas.cpp
+        src/Skater/Core/Time.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)

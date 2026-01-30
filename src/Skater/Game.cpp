@@ -5,6 +5,7 @@
 #include "Skater/Game.h"
 
 #include "Skater/Audio/AudioEngine.h"
+#include "Skater/Core/Time.h"
 #include "Skater/Events/Event.h"
 #include "Skater/Events/WindowEvent.h"
 #include "Skater/Input/Input.h"
@@ -87,6 +88,8 @@ namespace Skater {
             RenderCommand::Clear();
 
             Input::Update();
+
+            Time::Tick();
 
             if (_currentScene != nullptr) {
                 _currentScene->Update();
