@@ -121,4 +121,15 @@ namespace Skater {
 
         return _gamepads[gamepadIdx].GetAxis(axis);
     }
+
+    float Input::GetAxis(const InputAction &positiveAction, const InputAction &negativeAction) {
+        return positiveAction.GetValue() - negativeAction.GetValue();
+    }
+
+    Vector2 Input::GetVector(const InputAction &positiveXAction, const InputAction &negativeXAction,
+        const InputAction &positiveYAction, const InputAction &negativeYAction) {
+        const auto x = positiveXAction.GetValue() - negativeXAction.GetValue();
+        const auto y = positiveYAction.GetValue() - negativeYAction.GetValue();
+        return { x, y };
+    }
 }

@@ -29,6 +29,11 @@ namespace Skater {
 
         static bool IsJoystickButtonPressed(JoystickButton button, int8_t gamepadIdx);
         static float GetJoystickAxis(JoystickAxis axis, int8_t gamepadIdx);
+
+        // Helper functions for parsing multi-action values
+        static float GetAxis(const InputAction &positiveAction, const InputAction &negativeAction);
+        static Vector2 GetVector(const InputAction &positiveXAction, const InputAction &negativeXAction,
+            const InputAction &positiveYAction, const InputAction &negativeYAction);
     private:
         static constexpr uint8_t MAX_GAMEPADS = 16;
 
