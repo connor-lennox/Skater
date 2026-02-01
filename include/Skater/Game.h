@@ -31,7 +31,9 @@ namespace Skater {
 
         void SetBackbufferSize(uint32_t width, uint32_t height);
 
-        Rectangle GetRenderTargetDestination() const { return _renderTargetDest; };
+        Rectangle GetRenderTargetDestination() const { return _renderTargetDest; }
+
+        void SetWindowTitle(const std::string &title) const;
 
         static Game& GetInstance();
     private:

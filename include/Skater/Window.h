@@ -38,6 +38,8 @@ namespace Skater {
         virtual void SetVSync(bool enabled) = 0;
         virtual bool IsVSync() const = 0;
 
+        virtual void SetWindowTitle(std::string title) = 0;
+
         static Window* Create(const WindowProperties& props = WindowProperties());
     };
 }

@@ -136,4 +136,9 @@ namespace Skater {
     bool GlWindow::IsVSync() const {
         return _data.VSync;
     }
+
+    void GlWindow::SetWindowTitle(const std::string title) {
+        _data.Title = title;
+        glfwSetWindowTitle(_window, title.c_str());
+    }
 }

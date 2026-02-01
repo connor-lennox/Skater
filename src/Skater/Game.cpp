@@ -130,6 +130,10 @@ namespace Skater {
         UpdateRenderTargetDest();
     }
 
+    void Game::SetWindowTitle(const std::string &title) const {
+        _window->SetWindowTitle(title);
+    }
+
     Game& Game::GetInstance() {
         return *_staticGame;
     }

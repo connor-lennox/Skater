@@ -21,6 +21,8 @@ namespace Skater {
         void SetEventCallback(const EventCallbackFn &callback) override { _data.EventCallback = callback; }
         void SetVSync(bool enabled) override;
         [[nodiscard]] bool IsVSync() const override;
+
+        void SetWindowTitle(std::string title) override;
     private:
         GLFWwindow* _window{};
 
