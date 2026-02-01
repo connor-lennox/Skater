@@ -23,6 +23,8 @@ namespace Skater {
         Vector2 operator*(const Vector2 rhs) const { return Vector2(X * rhs.X, Y * rhs.Y); }
         Vector2 operator/(const Vector2 rhs) const { return Vector2(X / rhs.X, Y / rhs.Y); }
 
+        Vector2 operator*(const float rhs) const { return  { X * rhs, Y * rhs }; }
+
         bool operator==(const Vector2 rhs) const { return Equals(rhs); }
         bool operator!=(const Vector2 rhs) const { return !Equals(rhs); }
 

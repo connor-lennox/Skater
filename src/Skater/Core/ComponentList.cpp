@@ -81,6 +81,13 @@ namespace Skater {
             }
         }
 
+        // If we couldn't find the component in our "active" ones, maybe it's being added this frame?
+        for (const auto component : _toAdd) {
+            if (component->GetType() == type) {
+                return component;
+            }
+        }
+
         return nullptr;
     }
 }

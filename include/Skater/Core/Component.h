@@ -25,6 +25,7 @@ namespace Skater {
 
         bool Active = true;
 
+        [[nodiscard]] Entity *GetEntity() const { return _entity; }
         void SetEntity(Entity* entity) { _entity = entity; }
     protected:
         Entity* _entity;
