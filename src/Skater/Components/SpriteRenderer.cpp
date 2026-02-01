@@ -11,6 +11,14 @@ namespace Skater {
         _textureRegion = textureRegion;
     }
 
+    void SpriteRenderer::SetFlipHorizontal(const bool state) {
+        _spriteEffects.FlipHorizontal = state;
+    }
+
+    void SpriteRenderer::SetFlipVertical(const bool state) {
+        _spriteEffects.FlipVertical = state;
+    }
+
     Rectangle SpriteRenderer::GetRenderArea() const {
         const auto textureSize = _textureRegion.GetSourceTextureSize();
         const auto frameRenderSize = Point(textureSize.X / HFrames, textureSize.Y / VFrames);
@@ -33,7 +41,7 @@ namespace Skater {
 
         const auto finalPos = (_entity->Position - centeringOffset + Offset).Floor();
 
-        Game::GetInstance().GetRenderer()->Draw(_textureRegion.Tex, finalPos, renderArea, ModulateColor, SortingLayer);
+        Game::GetInstance().GetRenderer()->Draw(_textureRegion.Tex, finalPos, renderArea, ModulateColor, SortingLayer, _spriteEffects);
     }
 
 }

@@ -4,6 +4,7 @@
 
 #pragma once
 #include "RenderBatcher.h"
+#include "SpriteEffects.h"
 #include "Texture.h"
 #include "Skater/Math/Rectangle.h"
 #include "Skater/Math/Vector2.h"
@@ -17,7 +18,7 @@ namespace Skater {
         void Start();
         void Finish();
 
-        void Draw(Texture* texture, Vector2 position, Rectangle srcRect, Color color, uint32_t layerDepth);
+        void Draw(Texture* texture, Vector2 position, Rectangle srcRect, Color color, uint32_t layerDepth, SpriteEffects spriteEffects = SpriteEffects::None);
     private:
         RenderBatcher _batcher;
     };

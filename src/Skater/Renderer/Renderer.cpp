@@ -4,6 +4,8 @@
 
 #include "Skater/Renderer/Renderer.h"
 
+#include "Skater/Renderer/SpriteEffects.h"
+
 namespace Skater {
     Renderer::Renderer() = default;
 
@@ -17,7 +19,7 @@ namespace Skater {
         _batcher.DrawBatch();
     }
 
-    void Renderer::Draw(Texture *texture, const Vector2 position, const Rectangle srcRect, const Color color, const uint32_t layerDepth) {
+    void Renderer::Draw(Texture *texture, const Vector2 position, const Rectangle srcRect, const Color color, const uint32_t layerDepth, const SpriteEffects spriteEffects) {
         const auto batchItem = _batcher.GetNextBatchItem();
         batchItem->ItemTexture = texture;
 
@@ -35,6 +37,19 @@ namespace Skater {
             h = texture->GetHeight();
             tl = Vector2::Zero;
             br = Vector2::One;
+        }
+
+        // Sprite Effects
+        if (spriteEffects.FlipHorizontal) {
+            const auto temp = tl.X;
+            tl.X = br.X;
+            br.X = temp;
+        }
+
+        if (spriteEffects.FlipVertical) {
+            const auto temp = tl.Y;
+            tl.Y = br.Y;
+            br.Y = temp;
         }
 
         batchItem->Set(position.X, position.Y, w, h, color, tl, br, layerDepth);
